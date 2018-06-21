@@ -1,0 +1,14 @@
+---
+- name: Enable Samba repositories
+  rhsm_repository:
+     name: "{{ item }}"
+     state: enabled
+  with_items: "{{ smb_repos }}"
+
+- name: Install HCI packages
+  package:
+     name: "{{ item }}"
+     state: present
+  with_items: "{{ smb_pkg }}"
+  when: gluster_repos_smb_pkg is defined and
+        gluster_repos_smb_pkg

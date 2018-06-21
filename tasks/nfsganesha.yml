@@ -1,0 +1,14 @@
+---
+- name: Enable NFS Ganesha repositories
+  rhsm_repository:
+     name: "{{ item }}"
+     state: enabled
+  with_items: "{{ nfs_ganesha_repos }}"
+
+- name: Install HCI packages
+  package:
+     name: "{{ item }}"
+     state: present
+  with_items: "{{ nfs_ganesha_pkg }}"
+  when: gluster_repos_nfs_ganesha_pkg is defined and
+        gluster_repos_nfs_ganesha_pkg

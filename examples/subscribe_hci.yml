@@ -1,0 +1,14 @@
+---
+- name: Subscribe to RHSM
+  hosts: rhsm
+  remote_user: root
+  gather_facts: no
+
+  vars:
+    gluster_repos_username: <user>@redhat.com
+    gluster_repos_password: <passwd>
+    gluster_repos_disable_all: true
+    gluster_repos_pools: <pool-id>
+    gluster_repos_hci_subscribe: true
+  roles:
+    - gluster.repos
