@@ -1,0 +1,52 @@
+---
+# Default repos for NFS ganesha
+nfs_ganesha_repos:
+   - rhel-7-server-rpms
+   - rh-gluster-3-for-rhel-7-server-rpms
+   - rh-gluster-3-nfs-for-rhel-7-server-rpms
+   - rhel-ha-for-rhel-7-server-rpms
+
+# Default repositories for Samba
+smb_repos:
+   - rhel-7-server-rpms
+   - rh-gluster-3-for-rhel-7-server-rpms
+   - rh-gluster-3-samba-for-rhel-7-server-rpms
+
+# Default repositories for hci
+hci_repos:
+   - rhel-7-server-rpms
+   - rh-gluster-3-for-rhel-7-server-rpms
+   - rhel-7-server-rhv-4-mgmt-agent-rpms
+
+#
+# Packages
+#
+
+# NFS Ganesha packages
+nfs_ganesha_pkg:
+   - glusterfs-ganesha
+   - nfs-ganesha
+   - corosync
+   - pacemaker
+   - libntirpc
+   - pcs
+
+# Samba Packages
+smb_pkg:
+   - samba
+   - samba-client
+   - glusterfs-server
+   - ctdb
+
+# HCI Packages
+hci_pkg:
+   - vdsm
+   - vdsm-gluster
+   - ovirt-hosted-engine-setup
+   - screen
+   - gluster-nagios-addons
+
+# Pkg installs?
+gluster_repos_hci_pkg: true
+gluster_repos_nfs_ganesha_pkg: true
+gluster_repos_smb_pkg: true

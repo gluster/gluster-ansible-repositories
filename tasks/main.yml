@@ -1,0 +1,65 @@
+---
+- name: Register with activation key, if activation key is provided
+  redhat_subscription:
+     state: present
+     activationkey: "{{ gluster_repos_activationkey }}"
+     auto_attach: "{{ gluster_repos_attach }}"
+  when: gluster_repos_activationkey is defined and
+        gluster_repos_activationkey
+  tags: activationkey
+
+- name: Register to subscription-manager with username and password
+  redhat_subscription:
+     state: present
+     username: "{{ gluster_repos_username }}"
+     password: "{{ gluster_repos_password }}"
+     force_register: "{{ gluster_repos_force | default('no') }}"
+     auto_attach: "{{ gluster_repos_attach | default('no') }}"
+  when: gluster_repos_username is defined and
+        gluster_repos_password is defined
+  tags: register
+
+- name: Attach to Red Hat subscription pool
+  redhat_subscription:
+     state: present
+     pool_ids: "{{ gluster_repos_pools }}"
+     username: "{{ gluster_repos_username }}"
+     password: "{{ gluster_repos_password }}"
+  when: gluster_repos_pools is defined and
+        gluster_repos_username is defined and
+        gluster_repos_password is defined
+  tags: attachpools
+
+- name: Disable all rhsm repos
+  rhsm_repository:
+     name: '*'
+     state: disabled
+  when: gluster_repos_disable_all is defined and gluster_repos_disable_all
+  tags: disablerepos
+
+- name: Enable the specified rhsm repos
+  rhsm_repository:
+     name: "{{ item }}"
+     state: enabled
+  with_items: "{{ gluster_repos_rhsmrepos }}"
+  when: gluster_repos_rhsmrepos is defined
+  tags:
+    - enablerepos
+
+# Enabled specified usecases
+- name: Enable the repos and install packages for HCI
+  import_tasks: hci.yml
+  when: gluster_repos_hci_subscribe is defined and gluster_repos_hci_subscribe
+  tags: hcisubscribe
+
+- name: Enable the repos and install packages for NFS Ganesha
+  import_tasks: nfsganesha.yml
+  when: gluster_repos_nfsganesha_subscribe is defined and
+        gluster_repos_nfsganesha_subscribe
+  tags: nfsganeshasubscribe
+
+- name: Enable the repos and install packages for Samba
+  import_tasks: smb.yml
+  when: gluster_repos_smb_subscribe is defined and
+        gluster_repos_smb_subscribe
+  tags: smbsubscribe

@@ -1,0 +1,13 @@
+---
+- name: Enable HCI repositories
+  rhsm_repository:
+     name: "{{ item }}"
+     state: enabled
+  with_items: "{{ hci_repos }}"
+
+- name: Install HCI packages
+  package:
+     name: "{{ item }}"
+     state: present
+  with_items: "{{ hci_pkg }}"
+  when: gluster_repos_hci_pkg is defined and gluster_repos_hci_pkg
