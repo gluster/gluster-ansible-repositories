@@ -1,4 +1,9 @@
 ---
+- name: check if gluster_repos_activationkey is set
+  fail:
+    msg: "gluster_repos_activationkey is needed for enabling the repositories"
+  when: gluster_repos_activationkey is not defined
+
 - name: Register with activation key, if activation key is provided
   redhat_subscription:
      state: present
@@ -7,6 +12,16 @@
   when: gluster_repos_activationkey is defined and
         gluster_repos_activationkey
   tags: activationkey
+
+- name: check if gluster_repos_username is set
+  fail:
+    msg: "Please provide Username for the subscription-manager command"
+  when: gluster_repos_username is not defined
+
+- name: check if gluster_repos_password is set
+  fail:
+    msg: "Please provide Password for the subscription-manager command"
+  when: gluster_repos_password is not defined
 
 - name: Register to subscription-manager with username and password
   redhat_subscription:
@@ -18,6 +33,11 @@
   when: gluster_repos_username is defined and
         gluster_repos_password is defined
   tags: register
+
+- name: check if gluster_repos_pools is set
+  fail:
+    msg: "Please provide List of pool ids to attach"
+  when: gluster_repos_pools is not defined
 
 - name: Attach to Red Hat subscription pool
   redhat_subscription:
@@ -37,6 +57,11 @@
   when: gluster_repos_disable_all is defined and gluster_repos_disable_all
   tags: disablerepos
 
+- name: check if gluster_repos_rhsmrepos is set
+  fail:
+    msg: "Please provide List of repositories to enable"
+  when: gluster_repos_rhsmrepos is not defined
+
 - name: Enable the specified rhsm repos
   rhsm_repository:
      name: "{{ item }}"
@@ -45,6 +70,21 @@
   when: gluster_repos_rhsmrepos is defined
   tags:
     - enablerepos
+
+- name: check if gluster_repos_hci_subscribe is set
+  fail:
+    msg: "Please provide HCI repositories to be attached"
+  when: gluster_repos_hci_subscribe is not defined
+
+- name: check if gluster_repos_nfsganesha_subscribe is set
+  fail:
+    msg: "Please provide List of nfs-ganesha repositories to attach"
+  when: gluster_repos_nfsganesha_subscribe is not defined
+
+- name: check if gluster_repos_smb_subscribe is set
+  fail:
+    msg: "Please provide List of SMB repositories to attach"
+  when: gluster_repos_smb_subscribe is not defined
 
 # Enabled specified usecases
 - name: Enable the repos and install packages for HCI
