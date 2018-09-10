@@ -1,4 +1,18 @@
 ---
+- name:  Check if username variable is set
+  fail:
+    msg: "Username is needed if activation key is not given"
+  when:
+    - gluster_repos_username is not defined
+    - gluster_repos_activationkey is not defined
+
+- name:  Check if password variable is set
+  fail:
+    msg: "Password is needed when activation key is not given"
+  when:
+    - gluster_repos_password is not defined
+    - gluster_repos_activationkey not is defined
+
 - name: Register with activation key, if activation key is provided
   redhat_subscription:
      state: present
@@ -18,6 +32,11 @@
   when: gluster_repos_username is defined and
         gluster_repos_password is defined
   tags: register
+
+- name: check if gluster_repos_pools is set
+  fail:
+    msg: "Please provide List of pool ids to attach"
+  when: gluster_repos_pools is not defined
 
 - name: Attach to Red Hat subscription pool
   redhat_subscription:
