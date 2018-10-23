@@ -51,6 +51,7 @@ Subscribe to RHSM using username and password and attach to a pool
 
   vars:
     gluster_repos_username: <user>@redhat.com
+    # Ensure to encrypt the password variable using ansible-vault
     gluster_repos_password: <passwd>
     gluster_repos_disable_all: true
     gluster_repos_pools: 9c31g9713e3adareak203r3adfa4e950

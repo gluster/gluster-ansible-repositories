@@ -3,9 +3,11 @@
   hosts: rhsm
   remote_user: root
   gather_facts: no
+  no_log: True
 
   vars:
     gluster_repos_username: <user>@redhat.com
+    # Ensure to encrypt the password variable using vault
     gluster_repos_password: <passwd>
     gluster_repos_disable_all: true
     gluster_repos_pools: <pool-id>
