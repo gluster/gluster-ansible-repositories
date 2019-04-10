@@ -22,13 +22,13 @@
         gluster_repos_activationkey
   tags: activationkey
 
-- name: Register to subscription-manager with username and password
+- name: register/un-register to subscription-manager
   redhat_subscription:
-     state: present
+     state: "{{ gluster_repos_state|default('present') }}"
      username: "{{ gluster_repos_username }}"
      password: "{{ gluster_repos_password }}"
      force_register: "{{ gluster_repos_force | default('no') }}"
-     auto_attach: "{{ gluster_repos_attach | default('no') }}"
+     auto_attach: "{{ gluster_repos_attach | default(omit) }}"
   when: gluster_repos_username is defined and
         gluster_repos_password is defined
   tags: register
@@ -46,7 +46,8 @@
      password: "{{ gluster_repos_password }}"
   when: gluster_repos_pools is defined and
         gluster_repos_username is defined and
-        gluster_repos_password is defined
+        gluster_repos_password is defined and
+        gluster_repos_state == 'present'
   tags: attachpools
 
 - name: Disable all rhsm repos
@@ -64,6 +65,16 @@
   when: gluster_repos_rhsmrepos is defined
   tags:
     - enablerepos
+
+# Install the packages
+- name: Install the packages provided
+  package:
+     name: "{{ item }}"
+     state: present
+  with_items: "{{ gluster_repos_packages }}"
+  when: gluster_repos_packages is defined and gluster_repos_packages
+  tags:
+    - installpackages
 
 # Enabled specified usecases
 - name: Enable the repos and install packages for HCI

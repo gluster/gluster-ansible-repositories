@@ -22,6 +22,7 @@ Role Variables
 | gluster_repos_hci_subscribe | | UNDEF | Attach to HCI repositories |
 | gluster_repos_nfsganesha_subscribe  | | UNDEF | Attach to list of NFS Ganesha repositories |
 | gluster_repos_smb_subscribe  | | UNDEF | Attach to list of SMB repositores |
+| gluster_repos_packages || UNDEF | Install the listed packages |
 
 Tags
 ----
@@ -36,6 +37,7 @@ Tags
 | hcisubscribe | Enable the repositories required for HCI |
 | nfsganeshasubscribe | Enable the repositories required for NFS Ganesha  |
 | smbsubscribe | Enable the repositories required for Samba |
+| installpackages | Install the list of packages |
 
 Example Playbook
 ----------------
