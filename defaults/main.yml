@@ -1,4 +1,6 @@
 ---
+gluster_repos_state: 'present'
+
 # Default repos for NFS ganesha
 nfs_ganesha_repos:
    - rhel-7-server-rpms
@@ -47,6 +49,6 @@ hci_pkg:
    - gluster-nagios-addons
 
 # Pkg installs?
-gluster_repos_hci_pkg: true
-gluster_repos_nfs_ganesha_pkg: true
-gluster_repos_smb_pkg: true
+gluster_repos_hci_pkg: false
+gluster_repos_nfs_ganesha_pkg: false
+gluster_repos_smb_pkg: false
