@@ -17,7 +17,8 @@
   redhat_subscription:
      state: present
      activationkey: "{{ gluster_repos_activationkey }}"
-     auto_attach: "{{ gluster_repos_attach }}"
+     auto_attach: "{{ gluster_repos_attach | default(omit)}}"
+     org_id: "{{ gluster_repos_org_id }}"
   when: gluster_repos_activationkey is defined and
         gluster_repos_activationkey
   tags: activationkey
