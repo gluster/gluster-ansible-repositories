@@ -63,5 +63,5 @@ Subscribe to RHSM using username and password and attach to a pool
        - rh-gluster-3-nfs-for-rhel-7-server-rpms
        - rhel-ha-for-rhel-7-server-rpms
   roles:
-    - gluster.repositories
+    - gluster.repos
 ```
