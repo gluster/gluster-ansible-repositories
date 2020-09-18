@@ -11,7 +11,7 @@
     msg: "Password is needed when activation key is not given"
   when:
     - gluster_repos_password is not defined
-    - gluster_repos_activationkey not is defined
+    - gluster_repos_activationkey is not defined
 
 - name: Register with activation key, if activation key is provided
   redhat_subscription:
