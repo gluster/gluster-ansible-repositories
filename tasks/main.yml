@@ -34,19 +34,12 @@
         gluster_repos_password is defined
   tags: register
 
-- name: check if gluster_repos_pools is set
-  fail:
-    msg: "Please provide List of pool ids to attach"
-  when: gluster_repos_pools is not defined
-
 - name: Attach to Red Hat subscription pool
   redhat_subscription:
      state: present
-     pool_ids: "{{ gluster_repos_pools }}"
      username: "{{ gluster_repos_username }}"
      password: "{{ gluster_repos_password }}"
-  when: gluster_repos_pools is defined and
-        gluster_repos_username is defined and
+  when: gluster_repos_username is defined and
         gluster_repos_password is defined and
         gluster_repos_state == 'present'
   tags: attachpools
