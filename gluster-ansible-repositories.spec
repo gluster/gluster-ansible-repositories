@@ -12,7 +12,7 @@ Source0:   %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}-%{buildnum}.tar
 License:   GPLv3
 BuildArch: noarch
 
-Requires:  ansible >= 2.6
+Requires:  ansible >= 2.12
 
 %description
 Collection of Ansible roles for registering to Red Hat subscription manager,
