@@ -1,14 +1,14 @@
 %global rolesdir %{_sysconfdir}/ansible/roles/gluster.repos
 %global docdir %{_datadir}/doc/gluster.repos
-%global buildnum 1
+%global buildnum 5
 
 Name:      gluster-ansible-repositories
-Version:   1.0.0
-Release:   1%{?dist}
+Version:   1.0.1
+Release:   %{buildnum}%{?dist}
 Summary:   Ansible roles for GlusterFS infrastructure management
 
 URL:       https://github.com/gluster/gluster-ansible-repositories
-Source0:   %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}-%{buildnum}.tar.gz
+Source0:   %{url}/archive/v%{version}-%{buildnum}.tar.gz#/%{name}-%{version}-%{buildnum}.tar.gz
 License:   GPLv3
 BuildArch: noarch
 
@@ -19,7 +19,7 @@ Collection of Ansible roles for registering to Red Hat subscription manager,
 subscribing to repositories, and installing packages.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}-%{buildnum}
 
 %build
 
@@ -37,6 +37,9 @@ cp -dpr README.md examples %{buildroot}/%{docdir}
 %license LICENSE
 
 %changelog
+* Fri Apr 01 2022 Sandro Bonazzola <sbonazzo@redhat.com> - 1.0.1-5
+- Rebase on v1.0.1-5
+
 * Thu Feb 21 2019 Sachidananda Urs <sac@redhat.com> 1.0.0-1
 - Bump the version number to 1
 
